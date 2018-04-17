@@ -2,6 +2,7 @@
     "name": "FreeCAD integration",
     "author": "Thomas Karl Pietrowski",
     "version": "0.1.0",
+    "website": "https://thopiekar.eu/cura/plugins/cad/freecad/",
     "api": 4,
     "description": "Help to open OpenSCAD files directly in Cura."
 }
