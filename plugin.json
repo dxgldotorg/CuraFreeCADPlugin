@@ -1,7 +1,7 @@
 {
     "name": "FreeCAD integration",
     "author": "Thomas Karl Pietrowski",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "api": 4,
     "description": "Help to open OpenSCAD files directly in Cura."
 }
