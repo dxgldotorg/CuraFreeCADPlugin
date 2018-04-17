@@ -23,12 +23,17 @@ class FreeCADReader(CommonCLIReader):
     def areReadersAvailable(self):
         return bool(self._readerForFileformat)
 
+    def openForeignFile(self, options):
+        options["fileFormats"].append("stl")
+
+        return super().openForeignFile(options)
+
     def exportFileAs(self, options, quality_enum = None):
         Logger.log("d", "Exporting file: %s", options["tempFile"])
-        
+
         cmd = 'FreeCADCmd'
 
-        cmd = [cmd, 
+        cmd = [cmd,
                os.path.join(os.path.split(__file__)[0],
                             "scripts",
                             "convertIntoSTL.py"
