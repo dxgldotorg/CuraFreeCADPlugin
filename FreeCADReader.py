@@ -31,15 +31,25 @@ class FreeCADReader(CommonCLIReader):
     def exportFileAs(self, options, quality_enum = None):
         Logger.log("d", "Exporting file: %s", options["tempFile"])
 
-        cmd = 'FreeCADCmd'
+        cli = 'FreeCADCmd'
 
-        cmd = [cmd,
-               os.path.join(os.path.split(__file__)[0],
+        __real_file__ = os.path.realpath(__file__)
+        opt = [os.path.join(os.path.split(__real_file__)[0],
                             "scripts",
                             "convertIntoSTL.py"
                             ),
-               '--',
+               #'--',
                options["foreignFile"],
                options["tempFile"],
                ]
-        self.executeCommand(cmd, cwd = os.path.split(options["foreignFile"])[0])
+        try:
+            ret = self.executeCommand([cli, ] + opt,
+                                      cwd = os.path.split(options["foreignFile"])[0],
+                                      )
+        except:
+            cli = cli.lower() # Ubuntu: Command name is since bioic in lowercase.
+            ret = self.executeCommand([cli, ] + opt,
+                                      cwd = os.path.split(options["foreignFile"])[0],
+                                      )
+        if ret != 0:
+            Logger.log("c", "Returncode is not 0!")
