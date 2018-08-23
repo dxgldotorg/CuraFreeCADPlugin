@@ -1,5 +1,5 @@
 {
-    "name": "FreeCAD integration",
+    "name": "FreeCAD Integration",
     "id" : "CuraFreeCADPlugin",
     "author": "Thomas Karl Pietrowski",
     "email" : "thopiekar@gmail.com",
