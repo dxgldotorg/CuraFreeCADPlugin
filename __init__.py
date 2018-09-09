@@ -18,13 +18,13 @@ def getMetaData():
         "mesh_reader": [
             {
                 "extension": "FCStd",
-                "description": i18n_catalog.i18nc("@item:inlistbox", "FreeCAD file")
+                "description": i18n_catalog.i18nc("@item:inlistbox", "FreeCAD files")
             },
         ]
     }
 
 def register(app):
-    if Platform.isWindows() or Platform.isLinux() or Platform.isOSX(): 
+    if Platform.isWindows() or Platform.isLinux() or Platform.isOSX():
         from . import FreeCADReader # @UnresolvedImport
         return {"mesh_reader": FreeCADReader.FreeCADReader()}
     else:
