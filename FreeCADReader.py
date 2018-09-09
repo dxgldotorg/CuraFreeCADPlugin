@@ -38,7 +38,10 @@ class FreeCADReader(CommonCLIReader):
                             "scripts",
                             "convertIntoSTL.py"
                             ),
+               "--",
+               "--file",
                options["foreignFile"],
+               "--stl",
                options["tempFile"],
                ]
         try:
