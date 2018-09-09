@@ -1,12 +1,18 @@
 # Copyright (c) 2018 Thomas Karl Pietrowski
 
 # built-ins
+import distutils.version.LooseVersion
 import os
 import platform
 
 # Uranium
+from UM.Application import Application # @UnresolvedImport
 from UM.Logger import Logger # @UnresolvedImport
 from UM.i18n import i18nCatalog # @UnresolvedImport
+
+# Since 3.4: Register Mimetypes:
+if distutils.version.LooseVersion("3.4") <= distutils.version.LooseVersion(Application.getInstance().getVersion()):
+    from UM.MimeTypeDatabase import MimeTypeDatabase, MimeType
 
 # CadIntegrationUtils
 from .CadIntegrationUtils.CommonCLIReader import CommonCLIReader # @UnresolvedImport
@@ -16,6 +22,14 @@ i18n_catalog = i18nCatalog("FreeCADPlugin")
 class FreeCADReader(CommonCLIReader):
     def __init__(self):
         super().__init__("FreeCAD")
+
+        if distutils.version.LooseVersion("3.4") <= distutils.version.LooseVersion(Application.getInstance().getVersion()):
+            MimeTypeDatabase.addMimeType(MimeType(name = "application/x-extension-fcstd",
+                                                  comment="FreeCAD files",
+                                                  suffixes=["fcstd"]
+                                                  )
+                                         )
+
         self._supported_extensions = [".FCStd".lower(),
                                       ]
         self.scanForAllPaths()
