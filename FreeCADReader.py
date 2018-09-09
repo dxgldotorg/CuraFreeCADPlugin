@@ -1,4 +1,4 @@
-# Copyright (c) 2016 Thomas Karl Pietrowski
+# Copyright (c) 2018 Thomas Karl Pietrowski
 
 # built-ins
 import os
@@ -8,7 +8,7 @@ import platform
 from UM.Logger import Logger # @UnresolvedImport
 from UM.i18n import i18nCatalog # @UnresolvedImport
 
-# CIU
+# CadIntegrationUtils
 from .CadIntegrationUtils.CommonCLIReader import CommonCLIReader # @UnresolvedImport
 
 i18n_catalog = i18nCatalog("FreeCADPlugin")
