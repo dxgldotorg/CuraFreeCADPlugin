@@ -1,3 +1,3 @@
 [submodule "CadIntegrationUtils"]
-	path = FreeCadPlugin/CadIntegrationUtils
+	path = CuraFreeCADPlugin/CadIntegrationUtils
 	url = ../CadIntegrationUtils.git
