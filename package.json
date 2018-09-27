@@ -3,7 +3,7 @@
     "package_type": "plugin",
     "display_name": "FreeCAD Integration",
     "description": "Help to open FreeCAD files directly in Cura.",
-    "package_version": "0.1.2",
+    "package_version": "0.2.0",
     "sdk_version": 5,
     "website": "https://thopiekar.eu/cura/plugins/cad/freecad/",
     "author": {

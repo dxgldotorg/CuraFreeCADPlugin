@@ -3,7 +3,7 @@
     "id" : "CuraFreeCADPlugin",
     "author": "Thomas Karl Pietrowski",
     "email" : "thopiekar@gmail.com",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "website": "https://thopiekar.eu/cura/plugins/cad/freecad/",
     "api": 5,
     "description": "Help to open FreeCAD files directly in Cura.",
