@@ -6,6 +6,7 @@
     "version": "0.2.1",
     "website": "https://thopiekar.eu/cura/plugins/cad/freecad/",
     "api": 5,
+    "minimum_api": 4,
     "description": "Help to open FreeCAD files directly in Cura.",
     "i18n-catalog" : "FreeCADPlugin"
 }
