@@ -13,7 +13,10 @@
         "website": "https://thopiekar.eu"
     },
     "tags": [
-        "CAD",
-        "integration"
+        "FreeCAD",
+        "FCStd",
+        "CIU",
+        "cad-integration",
+        "3rd-party"
     ]
 }
