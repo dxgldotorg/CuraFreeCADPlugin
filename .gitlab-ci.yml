@@ -1,0 +1,27 @@
+stages:
+  - build
+
+all:
+  stage: build
+  tags:
+    - os:ubuntu,
+    - package:python3
+    - type:shell
+  before_script:
+    - git submodule sync --recursive
+    - git submodule update --init --recursive
+  script:
+    - curl https://thopiekar.eu:5443/cura-plugins/CuraPluginOven/raw/deployment/cpo.py?inline=false --output cpo.py
+    - python3 ./cpo.py --create=package6 --source=./
+    - python3 ./cpo.py --create=source --source=./
+    - python3 ./cpo.py --create=plugin5 --source=./
+  only:
+    - triggers
+    - branches
+    - tags
+  artifacts:
+    paths:
+      - ./*.curapackage
+      - ./*.curaplugin
+      - ./*.umplugin
+      - ./*.zip
