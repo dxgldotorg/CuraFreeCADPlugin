@@ -2,13 +2,16 @@ import os
 import sys
 import argparse
 
+import math
+import uuid
+
 import FreeCAD
 import FreeCADGui
 import Part
 import Mesh
+import MeshPart
 
 our_args = sys.argv[-4:]
-print("ARGS: {}".format(our_args))
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--file', nargs='+')
@@ -16,29 +19,30 @@ parser.add_argument('--stl', nargs='+')
 
 parsed = parser.parse_args(our_args)
 
-#in_fn, out_fn = sys.argv[-2:]
-
 if len(parsed.file) > 1 or len(parsed.stl) > 1:
     print("Too many arguments for either --file or --stl")
 in_fn = os.path.normpath(parsed.file[0])
 out_fn = os.path.normpath(parsed.stl[0])
 
-print("INPUT: {}".format(in_fn))
-print("OUTPUT: {}".format(out_fn))
-
 FreeCADGui.setupWithoutGUI()
-part_object = FreeCAD.open(in_fn)
+native_file = FreeCAD.open(in_fn)
+active_object = native_file.ActiveObject
+active_shape = active_object.Shape.copy(False)
 
-__objs__ = []
+active_mesh = native_file.addObject("Mesh::Feature","Mesh")
+active_mesh.Mesh = MeshPart.meshFromShape(Shape = active_shape,
+                                          #MaxLength=1, # Mefisto
+                                          LinearDeflection = int(1.0 * 10), # Standard
+                                          AngularDeflection = math.radians(5), # Standard
+                                          Relative = False
+                                          )
+active_mesh_name = str(uuid.uuid4()) # Generating a name for the mesh, so we won't get conflicts
+active_mesh.Label = active_mesh_name
 
-for obj_name in part_object.Objects:
-    if obj_name.ViewObject:
-        if obj_name.ViewObject.isVisible():
-            __objs__.append(obj_name)
-    else: # <Part::PartFeature>
-        __objs__.append(obj_name)
+Mesh.export([active_mesh,], out_fn)
 
-Mesh.export(__objs__, out_fn)
-print("EXPORTED!")
+App.getDocument(App.ActiveDocument.Label).removeObject(active_mesh.Label)
+
+App.closeDocument(App.ActiveDocument.Label)
 
 sys.exit(0)
