@@ -3,7 +3,6 @@ import sys
 import argparse
 
 import math
-import uuid
 
 import FreeCAD
 import FreeCADGui
@@ -27,7 +26,7 @@ out_fn = os.path.normpath(parsed.stl[0])
 FreeCADGui.setupWithoutGUI()
 native_file = FreeCAD.open(in_fn)
 active_object = native_file.ActiveObject
-active_shape = active_object.Shape.copy(False)
+active_shape = active_object.Shape.copy()
 
 active_mesh = native_file.addObject("Mesh::Feature","Mesh")
 active_mesh.Mesh = MeshPart.meshFromShape(Shape = active_shape,
@@ -36,8 +35,6 @@ active_mesh.Mesh = MeshPart.meshFromShape(Shape = active_shape,
                                           AngularDeflection = math.radians(5), # Standard
                                           Relative = False
                                           )
-active_mesh_name = str(uuid.uuid4()) # Generating a name for the mesh, so we won't get conflicts
-active_mesh.Label = active_mesh_name
 
 Mesh.export([active_mesh,], out_fn)
 
