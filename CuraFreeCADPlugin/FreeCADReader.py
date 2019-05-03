@@ -49,7 +49,7 @@ class FreeCADReader(CommonCLIReader):
 
         __real_file__ = os.path.realpath(__file__)
         opt = [os.path.join(os.path.split(__real_file__)[0],
-                            "scripts",
+                            "macro",
                             "convertIntoSTL.py"
                             ),
                "--",
