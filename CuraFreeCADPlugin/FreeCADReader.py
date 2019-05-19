@@ -21,7 +21,7 @@ i18n_catalog = i18nCatalog("FreeCADPlugin")
 
 class FreeCADReader(CommonCLIReader):
     def __init__(self):
-        super().__init__("FreeCAD")
+        super().__init__()
 
         if Version("3.4") <= Version(Application.getInstance().getVersion()):
             MimeTypeDatabase.addMimeType(MimeType(name = "application/x-extension-fcstd",
