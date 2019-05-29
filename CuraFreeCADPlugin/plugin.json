@@ -3,7 +3,7 @@
     "id" : "CuraFreeCADPlugin",
     "author": "Thomas Karl Pietrowski",
     "email" : "thopiekar@gmail.com",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "website": "https://thopiekar.eu/cura/plugins/cad/freecad/",
     "supported_sdk_versions": ["5.0.0", "6.0.0", "6.1.0"],
     "api": 5,
