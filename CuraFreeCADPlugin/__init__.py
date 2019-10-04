@@ -34,7 +34,7 @@ def getMetaData():
 
 
 def register(app):
-    metadata = []
+    metadata = {}
     try:
         reader = FreeCADReader.FreeCADReader()
         metadata["mesh_reader"] = reader
