@@ -1,32 +1,44 @@
-# Copyright (c) 2016 Thomas Karl Pietrowski
+# Copyright (c) 2019 Thomas Karl Pietrowski
+
+__plugin_name__ = "FreeCAD plugin"
+__plugin_id__ = "CuraFreeCADPlugin"
 
 # Uranium
-from UM.Platform import Platform # @UnresolvedImport
-from UM.Logger import Logger # @UnresolvedImport
-from UM.i18n import i18nCatalog # @UnresolvedImport
-i18n_catalog = i18nCatalog("FreeCADPlugin")
+from UM.Platform import Platform  # @UnresolvedImport
+from UM.Logger import Logger  # @UnresolvedImport
+from UM.i18n import i18nCatalog  # @UnresolvedImport
+i18n_catalog = i18nCatalog(__plugin_id__)
+
+# This plugins
+from . import FreeCADReader
+
 
 def getMetaData():
     return {
         "plugin": {
-            "name": i18n_catalog.i18nc("@label", "FreeCADPlugin"),
+            "name": __plugin_name__,
             "author": "Thomas Karl Pietrowski",
             "version": "0.1.0",
-            "description": i18n_catalog.i18nc("@info:whatsthis", "Gives you the possibility to open *.FCStd files."),
+            "description": i18n_catalog.i18nc("@info:whatsthis",
+                                              "Gives you the possibility to open *.FCStd files."),
             "api": 3
         },
         "mesh_reader": [
             {
                 "extension": "FCStd",
-                "description": i18n_catalog.i18nc("@item:inlistbox", "FreeCAD files")
+                "description": i18n_catalog.i18nc("@item:inlistbox",
+                                                  "FreeCAD files")
             },
         ]
     }
 
+
 def register(app):
-    if Platform.isWindows() or Platform.isLinux() or Platform.isOSX():
-        from . import FreeCADReader # @UnresolvedImport
-        return {"mesh_reader": FreeCADReader.FreeCADReader()}
-    else:
-        Logger.logException("i", "Unsupported OS!")
-        return {}
+    metadata = {}
+    try:
+        reader = FreeCADReader.FreeCADReader()
+        metadata["mesh_reader"] = reader
+    except:
+        Logger.logException("e", "An error occured, when loading the reader!")
+
+    return metadata

@@ -12,7 +12,10 @@ all:
     - type:shell
   script:
     - curl https://thopiekar.eu:5443/cura-plugins/CuraPluginOven/raw/deployment/cpo.py?inline=false --output cpo.py
-    - python3 ./cpo.py --create=package6 --source=./
+    - python3 ./cpo.py --create=package610 --source=./
+    - python3 ./cpo.py --create=package600 --source=./
+    - python3 ./cpo.py --create=package5 --source=./
+    - python3 ./cpo.py --create=package4 --source=./
     - python3 ./cpo.py --create=plugin4 --source=./
     - python3 ./cpo.py --create=source --source=./
   only:
