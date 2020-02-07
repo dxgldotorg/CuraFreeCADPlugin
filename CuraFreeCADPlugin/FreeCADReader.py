@@ -66,7 +66,7 @@ class FreeCADReader(CommonCLIReader):
             ret = self.executeCommand([cli, ] + opt,
                                       cwd=cwd,
                                       )
-        except:
+        except Exception:
             # Ubuntu: Command name is since bioic in lowercase.
             cli = cli.lower()
             ret = self.executeCommand([cli, ] + opt,

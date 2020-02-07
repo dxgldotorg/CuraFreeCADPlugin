@@ -39,7 +39,7 @@ def register(app):
     try:
         reader = FreeCADReader.FreeCADReader()
         metadata["mesh_reader"] = reader
-    except:
+    except Exception:
         Logger.logException("e", "An error occured, when loading the reader!")
 
     return metadata
