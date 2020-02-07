@@ -28,15 +28,15 @@ native_file = FreeCAD.open(in_fn)
 active_object = native_file.ActiveObject
 active_shape = active_object.Shape.copy()
 
-active_mesh = native_file.addObject("Mesh::Feature","Mesh")
-active_mesh.Mesh = MeshPart.meshFromShape(Shape = active_shape,
-                                          #MaxLength=1, # Mefisto
-                                          LinearDeflection = int(1.0 * 10), # Standard
-                                          AngularDeflection = math.radians(5), # Standard
-                                          Relative = False
+active_mesh = native_file.addObject("Mesh::Feature", "Mesh")
+active_mesh.Mesh = MeshPart.meshFromShape(Shape=active_shape,
+                                          # MaxLength=1, # Mefisto
+                                          LinearDeflection=int(1.0 * 10),  # Standard
+                                          AngularDeflection=math.radians(5),  # Standard
+                                          Relative=False
                                           )
 
-Mesh.export([active_mesh,], out_fn)
+Mesh.export([active_mesh, ], out_fn)
 
 App.getDocument(App.ActiveDocument.Label).removeObject(active_mesh.Label)
 

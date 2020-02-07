@@ -10,12 +10,12 @@ from UM.Logger import Logger  # @UnresolvedImport
 from UM.i18n import i18nCatalog  # @UnresolvedImport
 from UM.Version import Version  # @UnresolvedImport
 
+# CIU
+from .CadIntegrationUtils.CommonCLIReader import CommonCLIReader  # @UnresolvedImport
+
 # Since 3.4: Register Mimetypes:
 if Version("3.4") <= Version(Application.getInstance().getVersion()):
     from UM.MimeTypeDatabase import MimeTypeDatabase, MimeType
-
-# CIU
-from .CadIntegrationUtils.CommonCLIReader import CommonCLIReader  # @UnresolvedImport
 
 i18n_catalog = i18nCatalog("FreeCADPlugin")
 
