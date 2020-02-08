@@ -5,7 +5,8 @@ stages:
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
-  GITHUB_MIRROR: https://github.com/thopiekar/CuraFreeCadPlugin.git
+  GITHUB_MIRROR_URL: https://github.com/thopiekar/CuraFreeCadPlugin.git
+  GITHUB_MIRROR_NAME: github-mirror
   PYCODESTYLE_ARGS: --max-line-length=120 --exclude=./*/CadIntegrationUtils/3rd-party/*
 
 codestyle-pep8:
@@ -68,10 +69,11 @@ check-mirror-github:
     - type:shell
   script:
     - '[[ ! "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" == "master" ]] && exit 0'
-    - git remote add github ${GITHUB_MIRROR}
-    - git remote update github
+    - git remote add ${GITHUB_MIRROR_NAME} ${GITHUB_MIRROR_URL}
+    - git remote update ${GITHUB_MIRROR_NAME}
     - export LATEST_HEAD=$(git rev-parse HEAD)
     - export LATEST_MIRROR=$(git rev-list -n 1 github/master)
+    - git remote remove ${GITHUB_MIRROR_NAME}
     - '[[ "${LATEST_HEAD}" == "${LATEST_MIRROR}" ]] && exit 0 || exit 1'
   only:
     - triggers
