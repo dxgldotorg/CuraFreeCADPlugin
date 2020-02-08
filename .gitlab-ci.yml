@@ -1,9 +1,11 @@
 stages:
   - verify
   - build
+  - publish
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
+  GITHUB_MIRROR: https://github.com/thopiekar/CuraFreeCadPlugin.git
   PYCODESTYLE_ARGS: --max-line-length=120 --exclude=./*/CadIntegrationUtils/3rd-party/*
 
 codestyle-pep8:
@@ -58,3 +60,17 @@ package:
       - ./*.curaplugin
       - ./*.umplugin
       - ./*.zip
+
+check-mirror-github:
+  stage: publish
+  tags:
+    - os:ubuntu
+    - type:shell
+  script:
+    - '[[ ! "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" == "master" ]] && exit 0'
+    - git add github ${GITHUB_MIRROR}
+    - git remote update github
+    - export CIU_LATEST_STABLE=$(git rev-list -n 1 github/master)
+  only:
+    - triggers
+    - tags
