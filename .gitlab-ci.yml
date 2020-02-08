@@ -19,6 +19,24 @@ codestyle-pep8:
     - branches
     - tags
 
+check-ciu-stable:
+  stage: verify
+  tags:
+    - os:ubuntu
+    - type:shell
+  script:
+    - cd ./*/CadIntegrationUtils/
+    - git fetch --all --tags
+    - export CIU_LATEST_STABLE=$(git rev-list -n 1 stable)
+    - export CIU_CURRENT=$(git rev-parse HEAD)
+    - 'echo "CURRENT: ${CIU_CURRENT}"'
+    - 'echo "LATEST_STABLE: ${CIU_LATEST_STABLE}"'
+    - '[[ "${CIU_CURRENT}" == "${CIU_LATEST_STABLE}" ]] && exit 0 || exit 1'
+  only:
+    - triggers
+    - merge_requests
+    - tags
+
 package:
   stage: build
   tags:
