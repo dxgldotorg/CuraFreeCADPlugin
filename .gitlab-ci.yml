@@ -72,7 +72,7 @@ check-mirror-github:
     - git remote add ${GITHUB_MIRROR_NAME} ${GITHUB_MIRROR_URL}
     - git remote update ${GITHUB_MIRROR_NAME}
     - export LATEST_HEAD=$(git rev-parse HEAD)
-    - export LATEST_MIRROR=$(git rev-list -n 1 github/master)
+    - export LATEST_MIRROR=$(git rev-list -n 1 ${GITHUB_MIRROR_NAME}/master)
     - git remote remove ${GITHUB_MIRROR_NAME}
     - 'echo "LATEST_HEAD: ${LATEST_HEAD}"'
     - 'echo "LATEST_MIRROR: ${LATEST_MIRROR}"'
