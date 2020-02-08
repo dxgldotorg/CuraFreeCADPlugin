@@ -68,7 +68,7 @@ check-mirror-github:
     - type:shell
   script:
     - '[[ ! "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" == "master" ]] && exit 0'
-    - git add github ${GITHUB_MIRROR}
+    - git remote add github ${GITHUB_MIRROR}
     - git remote update github
     - export LATEST_HEAD=$(git rev-parse HEAD)
     - export LATEST_MIRROR=$(git rev-list -n 1 github/master)
