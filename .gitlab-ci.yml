@@ -74,6 +74,8 @@ check-mirror-github:
     - export LATEST_HEAD=$(git rev-parse HEAD)
     - export LATEST_MIRROR=$(git rev-list -n 1 github/master)
     - git remote remove ${GITHUB_MIRROR_NAME}
+    - 'echo "LATEST_HEAD: ${LATEST_HEAD}"'
+    - 'echo "LATEST_MIRROR: ${LATEST_MIRROR}"'
     - '[[ "${LATEST_HEAD}" == "${LATEST_MIRROR}" ]] && exit 0 || exit 1'
   only:
     - triggers
