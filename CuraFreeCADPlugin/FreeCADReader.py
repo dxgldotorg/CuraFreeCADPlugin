@@ -46,7 +46,11 @@ class FreeCADReader(CommonCLIReader):
     def exportFileAs(self, options, quality_enum=None):
         Logger.log("d", "Exporting file: %s", options["tempFile"])
 
-        cli = 'FreeCADCmd'
+        freecad_commands = [
+            "FreeCADCmd",
+            "freecadcmd",
+            "freecadcmd-daily",
+        ]
 
         __real_file__ = os.path.realpath(__file__)
         opt = [os.path.join(os.path.split(__real_file__)[0],
@@ -62,15 +66,17 @@ class FreeCADReader(CommonCLIReader):
 
         cwd = os.path.split(options["foreignFile"])[0]
 
-        try:
-            ret = self.executeCommand([cli, ] + opt,
-                                      cwd=cwd,
-                                      )
-        except Exception:
-            # Ubuntu: Command name is since bioic in lowercase.
-            cli = cli.lower()
-            ret = self.executeCommand([cli, ] + opt,
-                                      cwd=cwd,
-                                      )
+        ret = -1
+        for freecad_command in freecad_commands:
+            try:
+                ret = self.executeCommand(
+                    [freecad_command, ] + opt,
+                    cwd=cwd,
+                )
+            except Exception:
+                # Command name is unknown
+                continue
+            break
+
         if ret != 0:
             Logger.log("c", "Returncode is not 0!")
